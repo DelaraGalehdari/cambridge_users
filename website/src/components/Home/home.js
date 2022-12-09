@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PaginateUsers from "../PaginateUsers/paginateUsers";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 const home = () => {
@@ -13,7 +14,7 @@ const home = () => {
       const res = await axios.get("http://localhost:8080/users");
       setUsersInfo(res.data.items);
       setShowUsers(usersinfo.slice(startOffset, endOffset));
-      //   console.log(usersinfo);
+      console.log(usersinfo);
     };
     fetchData();
   }, [usersinfo]);
@@ -27,6 +28,9 @@ const home = () => {
   return (
     <div>
       <PaginateUsers usersinfo={usersinfo} handlePage={handlePage} />
+      <Link to="/addUser">
+        <button onClick="">Add User</button>
+      </Link>
       {showUsers.map((user) => (
         <div key={user.id}>
           <div>
@@ -35,6 +39,7 @@ const home = () => {
           <div>{user.birthDate}</div>
           <div>{user.gender}</div>
           <div>{user.created}</div>
+          <button>Delete User</button>
         </div>
       ))}
     </div>
