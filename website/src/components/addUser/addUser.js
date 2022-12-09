@@ -28,7 +28,7 @@ const addUser = () => {
     // setUserId(maxIdIndex);
     setNewUserInfo((data) => ({
       ...data,
-      birthDate,
+      birthDate: moment(birthDate).format("YYYY- MM-DD"),
     }));
   }, [birthDate]);
 
@@ -62,7 +62,7 @@ const addUser = () => {
         <DatePicker
           name="birthdate"
           selected={birthDate}
-          onChange={handleDate}
+          onChange={(date) => setBirthDate(date)}
         />
         <label>FirstName</label>
         <input
