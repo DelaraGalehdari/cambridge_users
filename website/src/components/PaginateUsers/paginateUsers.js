@@ -4,7 +4,7 @@ import ReactPaginate from "react-paginate";
 const pagination = ({ usersinfo, handlePage }) => {
   const [usersCount, setUsersCount] = useState(0);
   const [userOffset, setUserOffset] = useState(0);
-  const usersPerPage = 6;
+  const usersPerPage = 4;
 
   useEffect(() => {
     // Fetch items based of number of page

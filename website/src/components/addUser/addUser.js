@@ -1,17 +1,31 @@
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
-import { dateFormat } from "../../hooks/convertDateFormat";
+import { useNavigate } from "react-router-dom";
+import moment from "moment";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 
+// interface IUser {
+//   id: number;
+//   birthDate: Date;
+//   firstName: string;
+//   lastName: string;
+//   gender: string;
+//   created: Date;
+// }
+
 const addUser = () => {
+  const navigate = useNavigate();
   const [newUserInfo, setNewUserInfo] = useState({
-    created: dateFormat(new Date()),
+    created: moment(new Date()).format("YYYY-MM-DD"),
   });
   const [startDate] = useState(new Date());
   const [birthDate, setBirthDate] = useState(new Date());
+  const [userId, setUserId] = useState();
 
   useEffect(() => {
+    // const maxIdIndex = usersinfo[usersinfo.length - 1].id + 1;
+    // setUserId(maxIdIndex);
     setNewUserInfo((data) => ({
       ...data,
       birthDate,
@@ -25,24 +39,31 @@ const addUser = () => {
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(newUserInfo.firstname.type, newUserInfo.lastname.type);
-    // axios.post("http://localhost:8080/users", newUserInfo);
-
-    // setNewUserInfo({
-    //   firstname: firstname,
-    //   lastname: lastname,
-    //   birthdate: birthdate,
-    //   gender: gender,
-    // });
-
+    // try {
+    //   const res = await axios.post("http://localhost:8080/users", newUserInfo);
+    //   console.log(res.data);
+    // } catch (err) {
+    //   console.log(err);
+    // }
     console.log(newUserInfo);
+
     //console.log(birthDate);
+  };
+  const handleDate = (date) => {
+    const formatedDate = moment(date).format("YYYY- MM-DD");
+    setBirthDate(formatedDate);
   };
   return (
     <div>
       <form onSubmit={handleSubmit}>
+        <label>Birthday</label>
+        <DatePicker
+          name="birthdate"
+          selected={birthDate}
+          onChange={handleDate}
+        />
         <label>FirstName</label>
         <input
           type="text"
@@ -54,10 +75,10 @@ const addUser = () => {
         <label>LastName</label>
         <input
           type="text"
-          name="lastname"
+          name="lastName"
           value={newUserInfo.lastname}
           onChange={handleChange}
-          placeholder="lastName"
+          placeholder="lastname"
         ></input>
         <select
           name="gender"
@@ -65,19 +86,13 @@ const addUser = () => {
           onChange={handleChange}
         >
           <option>Select gender</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
+          <option value="M">Male</option>
+          <option value="F">Female</option>
         </select>
-        <label>Birthday</label>
-        <DatePicker
-          name="birthdate"
-          selected={startDate}
-          onChange={(date) => {
-            setBirthDate(dateFormat(date));
-          }}
-        />
+
         <input type="submit" />
       </form>
+      <button onClick={() => navigate("/", { replace: true })}>Back</button>
     </div>
   );
 };
