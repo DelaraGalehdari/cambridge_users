@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import moment from "moment";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
@@ -16,19 +17,26 @@ import axios from "axios";
 
 const addUser = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { usersinfo } = location.state;
   const [newUserInfo, setNewUserInfo] = useState({
     created: moment(new Date()).format("YYYY-MM-DD"),
   });
-  const [startDate] = useState(new Date());
+  const [lastUserId, setLastUserId] = useState();
   const [birthDate, setBirthDate] = useState(new Date());
   const [userId, setUserId] = useState();
 
   useEffect(() => {
-    // const maxIdIndex = usersinfo[usersinfo.length - 1].id + 1;
-    // setUserId(maxIdIndex);
+    const maxIdIndex = usersinfo[usersinfo.length - 1].id + 1;
+    setLastUserId(maxIdIndex);
+  }, []);
+  console.log(lastUserId);
+
+  useEffect(() => {
     setNewUserInfo((data) => ({
       ...data,
       birthDate: moment(birthDate).format("YYYY- MM-DD"),
+      id: lastUserId,
     }));
   }, [birthDate]);
 

@@ -14,13 +14,13 @@ const home = () => {
   const [showUsers, setShowUsers] = useState([]);
   const [showAdd, setShowAdd] = useState(false);
 
+  console.log(usersinfo);
+
   useEffect(() => {
     const fetchData = async () => {
       const res = await axios.get("http://localhost:8080/users");
       setUsersInfo(res.data.items);
       setShowUsers(usersinfo.slice(startOffset, endOffset));
-
-      // console.log(usersinfo);
     };
     fetchData();
   }, [usersinfo]);
@@ -35,18 +35,20 @@ const home = () => {
     navigate("/addUser", { replace: true });
   };
 
-  return !showAdd ? (
+  return (
+    // !showAdd ? (
     <div>
       <PaginateUsers usersinfo={usersinfo} handlePage={handlePage} />
-      <button onClick={navigateComponent}>Add User</button>
-      {/* <Link to="/addUser" state={{ usersinfo: usersinfo }}>
-        <button onClick="">Add User</button>
-      </Link> */}
+      {/* <button onClick={navigateComponent}>Add User</button> */}
+      <Link to="/addUser" state={{ usersinfo: usersinfo }}>
+        <button>Add User</button>
+      </Link>
       {showUsers.map((user) => (
         <div key={user.id}>
           <div>
             {user.firstName} {user.lastName}
           </div>
+          <div>{user.id}</div>
           <div>{user.birthDate}</div>
           <div>{user.gender}</div>
           <div>{user.created}</div>
@@ -54,9 +56,10 @@ const home = () => {
         </div>
       ))}
     </div>
-  ) : (
-    <AddUser usersinfo={usersinfo} />
   );
+  // ) : (
+  //   <AddUser usersinfo={showAdd} />
+  // );
 };
 
 export default home;
