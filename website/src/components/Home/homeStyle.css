@@ -158,10 +158,6 @@ body {
   }
 }
 @media only screen and (max-width: 478px) {
-  /* .btn_add {
-    margin-left: -2%;
-    margin-top: 8%;
-  } */
   .users-container {
     grid-template-columns: repeat(1, 1fr);
   }

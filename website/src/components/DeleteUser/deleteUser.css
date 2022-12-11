@@ -1,15 +1,17 @@
 .btn_delete {
   display: inline-block;
   border-radius: 5px;
-  color: rgb(104, 104, 245);
+  color: white;
+  /* color: rgb(104, 104, 245); */
   text-transform: uppercase;
   font-size: 1rem;
   border: 1px solid red;
   margin-top: 5px;
+  background-image: linear-gradient(to right, #f50d15, #f7a8a8);
 }
 .btn_delete:hover {
   color: white;
-  background-color: red;
+  background-image: linear-gradient(to right, #3e0204, #f7a8a8);
 }
 .back-color {
   background-color: white;
