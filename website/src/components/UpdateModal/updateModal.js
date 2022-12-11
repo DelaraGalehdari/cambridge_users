@@ -1,68 +1,61 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
-import { useNavigate } from "react-router-dom";
-import { useLocation } from "react-router-dom";
-import moment from "moment";
-import "react-datepicker/dist/react-datepicker.css";
-import "./addUser.css";
 import heroImage from "../../images/registration-photo.png";
 import axios from "axios";
+import { useNavigate, useLocation } from "react-router-dom";
+import moment from "moment";
+import "../addUser/addUser.css";
 
-// interface IUser {
-//   id: number;
-//   birthDate: Date;
-//   firstName: string;
-//   lastName: string;
-//   gender: string;
-//   created: Date;
-// }
-
-const addUser = () => {
+const updateModal = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { usersinfo } = location.state;
-  const [newUserInfo, setNewUserInfo] = useState({
-    id: 1,
-    birthDate: null,
-    firstName: "",
-    lastName: "",
-    gender: "",
-    created: moment(new Date()).format("YYYY-MM-DD"),
+  const { user } = location.state;
+  const [updatedUserInfo, setUpdatedUserInfo] = useState({
+    id: user.id,
+    birthDate: user.birthDate,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    gender: user.gender,
+    created: user.created,
   });
+  const [userBirth, setUserBirth] = useState(updatedUserInfo.birthDate);
+  console.log("day", userBirth);
 
-  const [birthDate, setBirthDate] = useState(new Date());
-  // useEffect(() => {
-  //   const maxIdIndex = lastUserId + 1;
-  //   // const maxIdIndex = usersinfo[usersinfo.length - 1].id + 1;
-  //   setLastUserId(maxIdIndex);
-  // }, []);
+  //   useEffect(() => {
+  //     const bth = updatedUserInfo.birthDate;
+  //     const formatedDate = moment(bth).format("l");
+  //     setUserBirth(formatedDate);
+  //   }, [user]);
+  //   console.log("birth", userBirth);
 
   useEffect(() => {
-    addId();
-    setNewUserInfo((data) => ({
+    setUpdatedUserInfo((data) => ({
       ...data,
       // id: newUserInfo.id,
-      birthDate: moment(birthDate).format("YYYY- MM-DD"),
+      birthDate: moment(userBirth).format("YYYY- MM-DD"),
     }));
-  }, [birthDate]);
+  }, [userBirth]);
 
   const handleChange = (e) => {
-    setNewUserInfo((curr) => ({
+    setUpdatedUserInfo((curr) => ({
       ...curr,
       [e.target.name]: e.target.value,
     }));
   };
-  const addId = () => {
-    setNewUserInfo((data) => ({
-      ...data,
-      id: newUserInfo.id + 1,
+  const handleDateChange = (e) => {
+    setUpdatedUserInfo((curr) => ({
+      ...curr,
+      birthDate: moment(e.target.value).format("YYYY- MM-DD"),
     }));
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const res = await axios.post("http://localhost:8080/users", newUserInfo);
+      const res = await axios.put(
+        `http://localhost:8080/users/${user.id}`,
+        updatedUserInfo
+      );
       console.log(res.data);
 
       navigate("/", { replace: true });
@@ -70,10 +63,15 @@ const addUser = () => {
       console.log(err);
     }
   };
-  const handleDate = (date) => {
-    const formatedDate = moment(date).format("YYYY- MM-DD");
-    setBirthDate(formatedDate);
-  };
+
+  //   useEffect(() => {
+  //     setUpdatedUserInfo((data) => ({
+  //       ...data,
+  //       // id: newUserInfo.id,
+  //       birthDate: moment(updatedUserInfo.birthDate).format("YYYY- MM-DD"),
+  //     }));
+  //   }, [updatedUserInfo.birthDate]);
+
   return (
     <div className="userInfo-container">
       <form
@@ -93,7 +91,7 @@ const addUser = () => {
                 name="firstName"
                 required
                 className="input_field"
-                value={newUserInfo.firstname}
+                value={updatedUserInfo.firstName}
                 onChange={handleChange}
                 // placeholder="firstname"
               ></input>
@@ -105,17 +103,29 @@ const addUser = () => {
                 name="lastName"
                 required
                 className="input_field"
-                value={newUserInfo.lastname}
+                value={updatedUserInfo.lastName}
                 onChange={handleChange}
                 // placeholder="lastname"
               ></input>
               <label className="input_label">LastName</label>
             </div>
+            {/* <div className="input">
+              <input
+                name="birthDate"
+                type="text"
+                required
+                className="input_field"
+                value={moment(userBirth).format("YYYY- MM-DD")}
+                onChange={handleDateChange}
+                // placeholder="lastname"
+              ></input>
+              <label className="input_label">BirthDate</label>
+            </div> */}
             <div className="input">
               <DatePicker
                 name="birthdate"
-                selected={birthDate}
-                onChange={(date) => setBirthDate(date)}
+                selected={new Date(userBirth)}
+                onChange={(date) => setUserBirth(date)}
                 required
                 className="input_field"
               />
@@ -124,7 +134,7 @@ const addUser = () => {
             <div className="input">
               <select
                 name="gender"
-                value={newUserInfo.gender}
+                value={updatedUserInfo.gender}
                 onChange={handleChange}
                 required
                 className="input_field input_field_select"
@@ -142,9 +152,6 @@ const addUser = () => {
             </div>
             <div className="input">
               <input className="btn_submit" type="submit" />
-              {/* <button onClick={() => navigate("/", { replace: true })}>
-                Back
-              </button> */}
             </div>
           </div>
         </div>
@@ -153,4 +160,4 @@ const addUser = () => {
   );
 };
 
-export default addUser;
+export default updateModal;

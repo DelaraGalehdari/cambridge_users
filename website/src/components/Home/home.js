@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import PaginateUsers from "../PaginateUsers/paginateUsers";
 import AddUser from "../addUser/addUser";
 import DeleteUser from "../DeleteUser/deleteUser";
+import UpdateUser from "../UpdateUser/updateUser";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -74,6 +75,7 @@ const home = () => {
               userId={user.id}
               name={user.firstName + " " + user.lastName}
             />
+            <UpdateUser user={user} />
           </div>
         ))}
       </div>
