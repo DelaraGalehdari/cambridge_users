@@ -36,9 +36,9 @@ const deleteUser = ({ userId, name }) => {
     setDisplayConfirmationModal(false);
   };
   return (
-    <div>
+    <div className="back-color">
       {deleteSuccessMsg && <Alert variant="success">{deleteSuccessMsg}</Alert>}
-      <button className="btn_delete" onClick={showDeleteModal}>
+      <button className="btn_delete back-color" onClick={showDeleteModal}>
         Delete
       </button>
       <DeleteConfirmation

@@ -49,21 +49,21 @@ const home = () => {
 
       <div className="users-container">
         {showUsers.map((user) => (
-          <div key={user.id} className="user-card box">
+          <div key={user.id} className="user-card box back-color">
             <img src={user.gender === "F" ? girl_photo : boy_photo} />
-            <h4>
+            <h4 className="back-color">
               {user.firstName} {user.lastName}
             </h4>
-            <div>
-              <span>BirthDate : </span>
+            <div className="back-color">
+              <span className="back-color">BirthDate : </span>
               {user.birthDate}
             </div>
-            <div>
-              <span>Gender : </span>
+            <div className="back-color">
+              <span className="back-color">Gender : </span>
               {user.gender === "F" ? "Female" : "Male"}
             </div>
-            <div>
-              <span>Created at : </span>
+            <div className="back-color">
+              <span className="back-color">Created at : </span>
               {user.created}
             </div>
             <DeleteUser

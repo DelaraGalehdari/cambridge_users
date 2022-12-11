@@ -1,0 +1,9 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.App {
+  background-color: rgb(202, 227, 253);
+  /* height: 105vh; */
+}

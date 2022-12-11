@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
+import "./pagination.css";
 
 const pagination = ({ usersinfo, handlePage }) => {
   const [usersCount, setUsersCount] = useState(0);
