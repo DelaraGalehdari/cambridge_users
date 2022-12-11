@@ -49,30 +49,28 @@ const home = () => {
 
       <div className="users-container">
         {showUsers.map((user) => (
-          <>
-            <div className="user-card box">
-              <img src={user.gender === "F" ? girl_photo : boy_photo} />
-              <h4>
-                {user.firstName} {user.lastName}
-              </h4>
-              <div>
-                <span>BirthDate : </span>
-                {user.birthDate}
-              </div>
-              <div>
-                <span>Gender : </span>
-                {user.gender === "F" ? "Female" : "Male"}
-              </div>
-              <div>
-                <span>Created at : </span>
-                {user.created}
-              </div>
-              <DeleteUser
-                userId={user.id}
-                name={user.firstName + user.lastName}
-              />
+          <div key={user.id} className="user-card box">
+            <img src={user.gender === "F" ? girl_photo : boy_photo} />
+            <h4>
+              {user.firstName} {user.lastName}
+            </h4>
+            <div>
+              <span>BirthDate : </span>
+              {user.birthDate}
             </div>
-          </>
+            <div>
+              <span>Gender : </span>
+              {user.gender === "F" ? "Female" : "Male"}
+            </div>
+            <div>
+              <span>Created at : </span>
+              {user.created}
+            </div>
+            <DeleteUser
+              userId={user.id}
+              name={user.firstName + " " + user.lastName}
+            />
+          </div>
         ))}
       </div>
     </div>

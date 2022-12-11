@@ -21,24 +21,28 @@ const addUser = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { usersinfo } = location.state;
-  console.log(usersinfo);
   const [newUserInfo, setNewUserInfo] = useState({
+    id: 1,
+    birthDate: null,
+    firstName: "",
+    lastName: "",
+    gender: "",
     created: moment(new Date()).format("YYYY-MM-DD"),
   });
-  const [lastUserId, setLastUserId] = useState(0);
-  const [birthDate, setBirthDate] = useState(new Date());
-  const [userId, setUserId] = useState();
 
+  const [birthDate, setBirthDate] = useState(new Date());
   // useEffect(() => {
-  //   const maxIdIndex = usersinfo[usersinfo.length - 1].id + 1;
+  //   const maxIdIndex = lastUserId + 1;
+  //   // const maxIdIndex = usersinfo[usersinfo.length - 1].id + 1;
   //   setLastUserId(maxIdIndex);
   // }, []);
 
   useEffect(() => {
+    addId();
     setNewUserInfo((data) => ({
       ...data,
+      // id: newUserInfo.id,
       birthDate: moment(birthDate).format("YYYY- MM-DD"),
-      id: lastUserId + 1,
     }));
   }, [birthDate]);
 
@@ -48,12 +52,20 @@ const addUser = () => {
       [e.target.name]: e.target.value,
     }));
   };
+  const addId = () => {
+    setNewUserInfo((data) => ({
+      ...data,
+      id: newUserInfo.id + 1,
+    }));
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       const res = await axios.post("http://localhost:8080/users", newUserInfo);
       console.log(res.data);
+
+      navigate("/", { replace: true });
     } catch (err) {
       console.log(err);
     }
@@ -70,7 +82,7 @@ const addUser = () => {
       <form
         className="form-container"
         onSubmit={handleSubmit}
-        autocomplete="off"
+        autoComplete="off"
       >
         <div className="userInfo-left">
           <img src={heroImage} />
