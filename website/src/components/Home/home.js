@@ -5,6 +5,9 @@ import DeleteUser from "../DeleteUser/deleteUser";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import "./homeStyle.css";
+import girl_photo from "../../images/girl.png";
+import boy_photo from "../../images/boy.png";
 
 const home = () => {
   const navigate = useNavigate();
@@ -13,8 +16,6 @@ const home = () => {
   const [endOffset, setEndOffset] = useState(6);
   const [showUsers, setShowUsers] = useState([]);
   const [showAdd, setShowAdd] = useState(false);
-
-  console.log(usersinfo);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,29 +38,72 @@ const home = () => {
 
   return (
     // !showAdd ? (
-    <div>
+    <div className="pagin-holder">
       <PaginateUsers usersinfo={usersinfo} handlePage={handlePage} />
-      {/* <button onClick={navigateComponent}>Add User</button> */}
       <Link to="/addUser" state={{ usersinfo: usersinfo }}>
-        <button>Add User</button>
+        <button className="btn_add">
+          <div className="circle"></div>Add User
+        </button>
       </Link>
-      {showUsers.map((user) => (
-        <div key={user.id}>
-          <div>
-            {user.firstName} {user.lastName}
-          </div>
-          <div>{user.id}</div>
-          <div>{user.birthDate}</div>
-          <div>{user.gender}</div>
-          <div>{user.created}</div>
-          <DeleteUser userId={user.id} />
-        </div>
-      ))}
+      {/* <button onClick={navigateComponent}>Add User</button> */}
+
+      <div className="users-container">
+        {showUsers.map((user) => (
+          <>
+            <div className="user-card box">
+              <img src={user.gender === "F" ? girl_photo : boy_photo} />
+              <h4>
+                {user.firstName} {user.lastName}
+              </h4>
+              <div>
+                <span>BirthDate : </span>
+                {user.birthDate}
+              </div>
+              <div>
+                <span>Gender : </span>
+                {user.gender === "F" ? "Female" : "Male"}
+              </div>
+              <div>
+                <span>Created at : </span>
+                {user.created}
+              </div>
+              <DeleteUser
+                userId={user.id}
+                name={user.firstName + user.lastName}
+              />
+            </div>
+          </>
+        ))}
+      </div>
     </div>
   );
-  // ) : (
-  //   <AddUser usersinfo={showAdd} />
-  // );
 };
+{
+  /* {showUsers.map((user) => (
+        <div key={user.id}>
+          <div className="users-container">
+            <div>
+              {user.firstName} {user.lastName}
+            </div>
+            <div>{user.id}</div>
+            <div>{user.birthDate}</div>
+            <div>{user.gender}</div>
+            <div>{user.created}</div>
+            <div>
+              <DeleteUser userId={user.id} />
+            </div>
+          </div>
+        </div>
+      ))} */
+}
+
+{
+  /* // ) : (
+  //   <AddUser usersinfo={showAdd} />
+  // ); */
+}
+{
+  /* }; */
+}
 
 export default home;
