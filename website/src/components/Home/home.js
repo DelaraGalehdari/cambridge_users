@@ -39,12 +39,16 @@ const home = () => {
   return (
     // !showAdd ? (
     <div className="pagin-holder">
-      <PaginateUsers usersinfo={usersinfo} handlePage={handlePage} />
-      <Link to="/addUser" state={{ usersinfo: usersinfo }}>
-        <button className="btn_add">
-          <div className="circle"></div>Add User
-        </button>
-      </Link>
+      <div className="pagin-style">
+        <PaginateUsers usersinfo={usersinfo} handlePage={handlePage} />
+      </div>
+      <div className="add-style">
+        <Link to="/addUser" state={{ usersinfo: usersinfo }}>
+          <button className="btn_add">
+            <div className="circle"></div>Add User
+          </button>
+        </Link>
+      </div>
       {/* <button onClick={navigateComponent}>Add User</button> */}
 
       <div className="users-container">

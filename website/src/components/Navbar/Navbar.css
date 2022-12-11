@@ -4,6 +4,9 @@
 #navbar-text {
   color: #17a2b8;
 }
+.back {
+  color: #b175d5;
+}
 @media only screen and (max-width: 500px) {
   .navbar {
     display: flex;
