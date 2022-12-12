@@ -1,26 +1,15 @@
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import { useNavigate } from "react-router-dom";
-import { useLocation } from "react-router-dom";
 import moment from "moment";
 import "react-datepicker/dist/react-datepicker.css";
 import "./addUser.css";
 import heroImage from "../../images/registration-photo.png";
 import axios from "axios";
 
-// interface IUser {
-//   id: number;
-//   birthDate: Date;
-//   firstName: string;
-//   lastName: string;
-//   gender: string;
-//   created: Date;
-// }
-
 const addUser = () => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const { usersinfo } = location.state;
+  const post_url = "http://localhost:8080/users";
   const [newUserInfo, setNewUserInfo] = useState({
     id: 1,
     birthDate: null,
@@ -29,23 +18,18 @@ const addUser = () => {
     gender: "",
     created: moment(new Date()).format("YYYY-MM-DD"),
   });
-
   const [birthDate, setBirthDate] = useState(new Date());
-  // useEffect(() => {
-  //   const maxIdIndex = lastUserId + 1;
-  //   // const maxIdIndex = usersinfo[usersinfo.length - 1].id + 1;
-  //   setLastUserId(maxIdIndex);
-  // }, []);
 
+  //update birthday format
   useEffect(() => {
     addId();
     setNewUserInfo((data) => ({
       ...data,
-      // id: newUserInfo.id,
       birthDate: moment(birthDate).format("YYYY- MM-DD"),
     }));
   }, [birthDate]);
 
+  //handling onChange for all values
   const handleChange = (e) => {
     setNewUserInfo((curr) => ({
       ...curr,
@@ -62,7 +46,7 @@ const addUser = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const res = await axios.post("http://localhost:8080/users", newUserInfo);
+      const res = await axios.post(post_url, newUserInfo);
       console.log(res.data);
 
       navigate("/", { replace: true });
@@ -70,10 +54,7 @@ const addUser = () => {
       console.log(err);
     }
   };
-  const handleDate = (date) => {
-    const formatedDate = moment(date).format("YYYY- MM-DD");
-    setBirthDate(formatedDate);
-  };
+
   return (
     <div className="userInfo-container">
       <form
@@ -82,7 +63,7 @@ const addUser = () => {
         autoComplete="off"
       >
         <div className="userInfo-left">
-          <img src={heroImage} />
+          <img alt="hero" src={heroImage} />
         </div>
         <div className="userInfo-right">
           <div className="inputData">
@@ -95,7 +76,6 @@ const addUser = () => {
                 className="input_field"
                 value={newUserInfo.firstname}
                 onChange={handleChange}
-                // placeholder="firstname"
               ></input>
               <label className="input_label">FirstName</label>
             </div>
@@ -107,7 +87,6 @@ const addUser = () => {
                 className="input_field"
                 value={newUserInfo.lastname}
                 onChange={handleChange}
-                // placeholder="lastname"
               ></input>
               <label className="input_label">LastName</label>
             </div>
@@ -123,10 +102,10 @@ const addUser = () => {
             </div>
             <div className="input">
               <select
+                required
                 name="gender"
                 value={newUserInfo.gender}
                 onChange={handleChange}
-                required
                 className="input_field input_field_select"
               >
                 <option className="input_label input_label_select">
@@ -142,9 +121,6 @@ const addUser = () => {
             </div>
             <div className="input">
               <input className="btn_submit" type="submit" />
-              {/* <button onClick={() => navigate("/", { replace: true })}>
-                Back
-              </button> */}
             </div>
           </div>
         </div>

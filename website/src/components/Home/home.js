@@ -1,26 +1,24 @@
 import React, { useState, useEffect } from "react";
 import PaginateUsers from "../PaginateUsers/paginateUsers";
-import AddUser from "../addUser/addUser";
 import DeleteUser from "../DeleteUser/deleteUser";
 import UpdateUser from "../UpdateUser/updateUser";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./homeStyle.css";
 import girl_photo from "../../images/girl.png";
 import boy_photo from "../../images/boy.png";
 
 const home = () => {
-  const navigate = useNavigate();
   const [usersinfo, setUsersInfo] = useState([]);
   const [startOffset, setStartOffset] = useState(0);
   const [endOffset, setEndOffset] = useState(6);
   const [showUsers, setShowUsers] = useState([]);
-  const [showAdd, setShowAdd] = useState(false);
+  const fetch_url = "http://localhost:8080/users";
 
+  //fetch data from api
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios.get("http://localhost:8080/users");
+      const res = await axios.get(fetch_url);
       setUsersInfo(res.data.items);
       setShowUsers(usersinfo.slice(startOffset, endOffset));
     };
@@ -32,13 +30,8 @@ const home = () => {
     setStartOffset(minIndex);
     setEndOffset(maxIndex);
   };
-  const navigateComponent = () => {
-    setShowAdd(!showAdd);
-    navigate("/addUser", { replace: true });
-  };
 
   return (
-    // !showAdd ? (
     <div className="pagin-holder">
       <div className="pagin-style">
         <PaginateUsers usersinfo={usersinfo} handlePage={handlePage} />
@@ -50,12 +43,14 @@ const home = () => {
           </button>
         </Link>
       </div>
-      {/* <button onClick={navigateComponent}>Add User</button> */}
 
       <div className="users-container">
         {showUsers.map((user) => (
           <div key={user.id} className="user-card box back-color">
-            <img src={user.gender === "F" ? girl_photo : boy_photo} />
+            <img
+              alt="user-profile"
+              src={user.gender === "F" ? girl_photo : boy_photo}
+            />
             <h4 className="back-color">
               {user.firstName} {user.lastName}
             </h4>
@@ -84,32 +79,5 @@ const home = () => {
     </div>
   );
 };
-{
-  /* {showUsers.map((user) => (
-        <div key={user.id}>
-          <div className="users-container">
-            <div>
-              {user.firstName} {user.lastName}
-            </div>
-            <div>{user.id}</div>
-            <div>{user.birthDate}</div>
-            <div>{user.gender}</div>
-            <div>{user.created}</div>
-            <div>
-              <DeleteUser userId={user.id} />
-            </div>
-          </div>
-        </div>
-      ))} */
-}
-
-{
-  /* // ) : (
-  //   <AddUser usersinfo={showAdd} />
-  // ); */
-}
-{
-  /* }; */
-}
 
 export default home;

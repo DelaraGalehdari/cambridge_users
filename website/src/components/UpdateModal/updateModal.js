@@ -33,12 +33,6 @@ const updateModal = () => {
       [e.target.name]: e.target.value,
     }));
   };
-  const handleDateChange = (e) => {
-    setUpdatedUserInfo((curr) => ({
-      ...curr,
-      birthDate: moment(e.target.value).format("YYYY- MM-DD"),
-    }));
-  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -63,7 +57,7 @@ const updateModal = () => {
         autoComplete="off"
       >
         <div className="userInfo-left">
-          <img src={heroImage} />
+          <img alt="hero" src={heroImage} />
         </div>
         <div className="userInfo-right">
           <div className="inputData">

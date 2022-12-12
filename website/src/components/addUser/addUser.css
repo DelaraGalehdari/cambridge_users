@@ -1,16 +1,10 @@
 .form-container {
-  /* border: 1px solid;
-  border-radius: 5px; */
-  /* width: 900px;
-  height: 70vh; */
   margin-top: 70px;
   display: flex;
   flex-direction: row;
   background-color: hsl(0, 0%, 98%);
 }
 .userInfo-container {
-  /* margin-left: 20%; */
-
   max-width: 900px;
   margin: 0 auto;
   display: flex;

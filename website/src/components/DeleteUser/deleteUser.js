@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import DeleteConfirmation from "../DeleteConfirmation/deleteConfirmation";
 import { Alert } from "react-bootstrap";
 import "./deleteUser.css";
@@ -41,6 +40,7 @@ const deleteUser = ({ userId, name }) => {
       <button className="btn_delete back-color" onClick={showDeleteModal}>
         Delete
       </button>
+      {/* sending data to DeleteConfirmation component for deleting */}
       <DeleteConfirmation
         showModal={displayConfirmationModal}
         confirmModal={submitDelete}

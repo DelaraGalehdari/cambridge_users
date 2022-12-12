@@ -1,7 +1,6 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { FcLeft } from "react-icons/fc";
 import "./Navbar.css";
 
 const Navbar = () => {
