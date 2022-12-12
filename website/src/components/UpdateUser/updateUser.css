@@ -1,0 +1,15 @@
+.btn_update {
+  display: inline-block;
+  border-radius: 5px;
+  color: white;
+  /* color: rgb(104, 104, 245); */
+  text-transform: uppercase;
+  font-size: 1rem;
+  border: 1px solid #b175d5;
+  margin-top: 5px;
+  background-image: linear-gradient(to right, #b175d5, #ecd8f7);
+}
+.btn_update:hover {
+  color: white;
+  background-image: linear-gradient(to right, #4f047b, #ecd8f7);
+}

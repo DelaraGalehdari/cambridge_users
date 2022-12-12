@@ -19,19 +19,10 @@ const updateModal = () => {
     created: user.created,
   });
   const [userBirth, setUserBirth] = useState(updatedUserInfo.birthDate);
-  console.log("day", userBirth);
-
-  //   useEffect(() => {
-  //     const bth = updatedUserInfo.birthDate;
-  //     const formatedDate = moment(bth).format("l");
-  //     setUserBirth(formatedDate);
-  //   }, [user]);
-  //   console.log("birth", userBirth);
 
   useEffect(() => {
     setUpdatedUserInfo((data) => ({
       ...data,
-      // id: newUserInfo.id,
       birthDate: moment(userBirth).format("YYYY- MM-DD"),
     }));
   }, [userBirth]);
@@ -64,14 +55,6 @@ const updateModal = () => {
     }
   };
 
-  //   useEffect(() => {
-  //     setUpdatedUserInfo((data) => ({
-  //       ...data,
-  //       // id: newUserInfo.id,
-  //       birthDate: moment(updatedUserInfo.birthDate).format("YYYY- MM-DD"),
-  //     }));
-  //   }, [updatedUserInfo.birthDate]);
-
   return (
     <div className="userInfo-container">
       <form
@@ -93,7 +76,6 @@ const updateModal = () => {
                 className="input_field"
                 value={updatedUserInfo.firstName}
                 onChange={handleChange}
-                // placeholder="firstname"
               ></input>
               <label className="input_label">FirstName</label>
             </div>
@@ -105,22 +87,10 @@ const updateModal = () => {
                 className="input_field"
                 value={updatedUserInfo.lastName}
                 onChange={handleChange}
-                // placeholder="lastname"
               ></input>
               <label className="input_label">LastName</label>
             </div>
-            {/* <div className="input">
-              <input
-                name="birthDate"
-                type="text"
-                required
-                className="input_field"
-                value={moment(userBirth).format("YYYY- MM-DD")}
-                onChange={handleDateChange}
-                // placeholder="lastname"
-              ></input>
-              <label className="input_label">BirthDate</label>
-            </div> */}
+
             <div className="input">
               <DatePicker
                 name="birthdate"

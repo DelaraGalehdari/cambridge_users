@@ -1,12 +1,12 @@
 import React from "react";
-import UpdateModal from "../UpdateModal/updateModal";
 import { Link } from "react-router-dom";
+import "./updateUser.css";
 
 const updateUser = ({ user }) => {
   return (
     <div>
       <Link to="/update" state={{ user: user }}>
-        <button className="btn_delete back-color">Update</button>
+        <button className="btn_update update_back-color">Update</button>
       </Link>
     </div>
   );

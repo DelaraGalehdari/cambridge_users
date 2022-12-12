@@ -71,11 +71,13 @@ const home = () => {
               <span className="back-color">Created at : </span>
               {user.created}
             </div>
-            <DeleteUser
-              userId={user.id}
-              name={user.firstName + " " + user.lastName}
-            />
-            <UpdateUser user={user} />
+            <div className="btn-change">
+              <DeleteUser
+                userId={user.id}
+                name={user.firstName + " " + user.lastName}
+              />
+              <UpdateUser user={user} />
+            </div>
           </div>
         ))}
       </div>

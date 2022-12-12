@@ -124,6 +124,12 @@ body {
 .back-color {
   background-color: white;
 }
+.btn-change {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
 
 /* media */
 @media only screen and (max-width: 1178px) {
